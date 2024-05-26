@@ -1,7 +1,7 @@
 /* eslint-disable react/prop-types */
 import { useState } from "react";
 
-const Modal = ({ setModal, updateTask }) => {
+const Modal = ({ setModal, updateTask, setUpdateTask }) => {
   //set form data dynamacally
   const [formData, setFormData] = useState({
     title: updateTask ? updateTask.title : "",
@@ -51,6 +51,7 @@ const Modal = ({ setModal, updateTask }) => {
 
       resetFormData();
       setModal(false);
+      setUpdateTask(null);
     } catch (error) {
       console.error(error);
     }
@@ -80,6 +81,10 @@ const Modal = ({ setModal, updateTask }) => {
     });
   };
 
+  const handleClose = () => {
+    setModal(false);
+    setUpdateTask(null);
+  };
   return (
     <div>
       <div
@@ -165,7 +170,7 @@ const Modal = ({ setModal, updateTask }) => {
             </form>
 
             <button
-              onClick={() => setModal(false)}
+              onClick={handleClose}
               className="cursor-pointer absolute top-0 right-0 mt-4 mr-5 text-gray-400 hover:text-gray-600 transition duration-150 ease-in-out rounded focus:ring-2 focus:outline-none focus:ring-gray-600"
               aria-label="close modal"
               role="button"
